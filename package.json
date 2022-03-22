@@ -1,0 +1,47 @@
+{
+  "name": "audio-sample-sequencer",
+  "version": "1.0.0",
+  "description": "Educational Audio Sample Step Sequencer with Mixer",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "build-dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonoalex/audio-sample-sequencer.git"
+  },
+  "author": "Alex Beis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonoalex/audio-sample-sequencer/issues"
+  },
+  "homepage": "https://github.com/sonoalex/audio-sample-sequencer#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
+    "benchmark": "^2.1.4",
+    "css-loader": "^3.5.3",
+    "express": "^4.17.3",
+    "jquery": "^3.5.1",
+    "jquery-knob": "^1.2.11",
+    "socket.io": "^4.4.1",
+    "standardized-audio-context": "^24.1.26",
+    "style-loader": "^1.2.1",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^3.0.0",
+    "webpd": "^0.4.2"
+  }
+}

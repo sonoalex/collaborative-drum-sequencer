@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Audio Sequencer</title>
+    <link rel="stylesheet" href="dist/main.css">
+</head>
+<body>
+    <div id="main">
+        <button id="clicker" class="play-stop-button">Play/Stop</button>
+        <button id="metronome">[ON] METRONOME</button>
+        <input type="range" id="metronome_range" max="1" min="0" step="0.1">
+        <div id="tempoBox">Tempo: 
+            <span id="showTempo">120</span>BPM
+            <input type="range" id="tempo" min="30.0" max="160.0" step="1" value="120">
+        </div>
+        <div id="app-grid">
+
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="dist/bundle.js"></script>
+</body>
+</html>
