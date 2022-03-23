@@ -25,17 +25,16 @@ app.get('/test', function(req, res) {
 
 
 const users = {};
+let gridPositions = {}
 
 io.on('connection', (socket) => {
 
 	console.log('New Connection!');
 	
-	socket.on('new user', (username) => {
-		console.log(username);
-		if (users.length >2) {
-			console.log(`✋ Not allowed ✋`);
-			return;
-		}
+	socket.on('new user', ({username, grid}) => {
+		
+		console.log('new user grid:', gridPositions);
+		
 		
 		users[username] = socket.id;
 		console.log(users);
@@ -43,7 +42,14 @@ io.on('connection', (socket) => {
 		socket["username"] = username;
 		console.log(socket["username"]);
 		console.log(`✋ ${username} has joined the colabo!! ✋`);
-		io.emit("new user", username);
+
+		if (Object.entries(users).length > 1 ) {
+			console.log('Emitting config...', gridPositions);
+			io.to(socket.id).emit('grid-changed', {
+				grid: true,
+				message: gridPositions
+			});
+		}
 	  })
 
 	socket.on('isPlaying', data => {
@@ -59,10 +65,10 @@ io.on('connection', (socket) => {
 		});
 	});
 
-
 	socket.on('grid-changed', (data) => {
-		console.log(users);
-		if (users.length === 1) {
+		console.log('grid-changed: ' , data);
+		gridPositions = data;
+		if (Object.entries(users).length === 1) {
 			console.log('just one user connected! Do not broadcast');
 			return;
 		}
@@ -75,7 +81,9 @@ io.on('connection', (socket) => {
 
 	socket.on('disconnect', () => {
 		//This deletes the user by using the username we saved to the socket
+		console.log(users[socket.username]);
 		delete users[socket.username]
+		console.log(users);
 		io.emit('user has left', users);
 	  });
 });

@@ -15,8 +15,15 @@ import Sequencer from "./sequencer";
         },
         loadEvents() {
             this.main.addEventListener("click", () => {
-                AudioLoader.init();
-                Sequencer.init();
+                //AudioLoader.init();
+                Sequencer.loadSamples().then(data => {
+                    console.log('HEYYYY')
+                    Sequencer.init();
+                    Pd.start();
+                    Sequencer.start();
+                    Sequencer.socket.emit('new user', {'username':Sequencer.socketId, 'grid':Sequencer.gridPositions});
+
+                }).catch(e => console.log);
             });
 
             this.metronome.addEventListener("click", e => {

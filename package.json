@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "build-dev": "webpack --watch"
+    "build-dev": "webpack --watch",
+    "start": "node foo.js"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sonoalex/audio-sample-sequencer/issues"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "homepage": "https://github.com/sonoalex/audio-sample-sequencer#readme",
   "devDependencies": {

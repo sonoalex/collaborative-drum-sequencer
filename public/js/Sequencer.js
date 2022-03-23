@@ -28,6 +28,25 @@ const Sequencer = {
     socket: io(),
     socketId: new Date().getTime(),
 
+    loadSamples() {
+        return new Promise((myResolve, myReject) => {
+            // "Producing Code" (May take some time)
+
+            PatchLoader.patchBatchLoader({
+                kick: "patches/kick.pd",
+                snare: "patches/snare.pd",
+                hat: "patches/hat.pd",
+                shaker: "patches/shaker.pd",
+            }).then(patches => {
+                console.log(patches);
+                this.samples = patches;
+                myResolve();
+            }).catch(e => {
+                myReject();  // when error
+            });     
+        });
+        
+    },
     init() {
     
         if (!this.audioContext) {
@@ -39,19 +58,7 @@ const Sequencer = {
         this.constructGrid();
 
         //PatchLoader.getPatch('patches/kick_3.pd');
-        PatchLoader.patchBatchLoader({
-            kick: "patches/kick.pd",
-            snare: "patches/snare.pd",
-            hat: "patches/hat.pd",
-            shaker: "patches/shaker.pd",
-        }).then(patches => {
-            console.log(patches);
-            this.samples = patches;
-            //Pd.stop();
-            Pd.start();
-            this.start();
-            this.socket.emit('new user', this.socketId);
-        });
+       
        
     },
 
@@ -119,9 +126,24 @@ const Sequencer = {
             //this.init();
         });
 
+        /*this.socket.on('new user', data => {
+            console.log('new user connected');
+            this.gridPositions = data.message;
+            this.constructGrid();
+            this.loadEvents();
+        }); */
+        this.socket.on('room full', data => {
+            console.log('full!');
+            this.play();
+            alert('Room is full');
+        }); 
+
+
         this.socket.on('tempo changed', data => {
             this.options.TEMPO = data.message;
             const tempoElement = document.getElementById("showTempo")
+            const slider = document.getElementById("tempo");
+            slider.value  = data.message;
             tempoElement.innerHTML = data.message;
         });
     },
