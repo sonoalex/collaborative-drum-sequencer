@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-dev": "webpack --watch",
-    "start": "node foo.js"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
